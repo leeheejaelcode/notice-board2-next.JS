@@ -1,17 +1,16 @@
 import pb from "./pb";
 export const getFullList = async () => {
-  const response = await pb.collection("noticeBoard").getFullList();
-  return response;
+  try {
+    const response = await pb.collection("noticeBoard").getFullList();
+    return response;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
 };
 
 // 아이디가 일치하는 한 개의 데이터 가져오기
-export const getOneById = async ({
-  resource,
-  id,
-}: {
-  resource: string;
-  id: string;
-}) => {
+export const getOneById = async (resource: string, id: string) => {
   try {
     const response = await pb.collection(resource).getOne(id);
     return response;
@@ -22,15 +21,11 @@ export const getOneById = async ({
 };
 
 // 조건에 일치하는 첫번째 데이터 가져오기
-export const getFirstListItem = async ({
-  resource,
-  field,
-  value,
-}: {
-  resource: string;
-  field: string;
-  value: string;
-}) => {
+export const getFirstListItem = async (
+  resource: string,
+  field: string,
+  value: string
+) => {
   try {
     const response = await pb
       .collection(resource)
@@ -43,15 +38,12 @@ export const getFirstListItem = async ({
 };
 
 // POST 요청 함수
-export const createData = async ({
-  resource,
-  data,
-}: {
-  resource: string;
+export const createData = async (
+  resource: string,
   data: {
-    [key: string]: string;
-  };
-}) => {
+    [key: string]: string | boolean;
+  }
+) => {
   try {
     const response = await pb.collection(resource).create(data);
     return response;
@@ -62,17 +54,13 @@ export const createData = async ({
 };
 
 // PUT 요청 함수
-export const updateData = async ({
-  resource,
-  id,
-  data,
-}: {
-  resource: string;
-  id: string;
+export const updateData = async (
+  resource: string,
+  id: string,
   data: {
     [key: string]: string;
-  };
-}) => {
+  }
+) => {
   try {
     const response = await pb.collection(resource).update(id, data);
     return response;
@@ -83,13 +71,7 @@ export const updateData = async ({
 };
 
 // DELETE 요청 함수
-export const deleteData = async ({
-  resource,
-  id,
-}: {
-  resource: string;
-  id: string;
-}) => {
+export const deleteData = async (resource: string, id: string) => {
   try {
     const response = await pb.collection(resource).delete(id);
     return response;
