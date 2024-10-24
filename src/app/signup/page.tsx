@@ -12,7 +12,7 @@ export default function Signup() {
   const signupButtonClick = signupStore((s) => s.signupButtonClick);
 
   ///////////////////////////////////////////////////////////////////////
-  const getId = signupStore((s) => s.getId);
+  const getEmail = signupStore((s) => s.getEmail);
   const getPassword = signupStore((s) => s.getPassword);
   const getPasswordConfirm = signupStore((s) => s.getPasswordConfirm);
   const getName = signupStore((s) => s.getName);
@@ -20,7 +20,9 @@ export default function Signup() {
   const getVerificationCode = signupStore((s) => s.getVerificationCode);
 
   const handleSignupButtonClick = async () => {
-    await signupButtonClick();
+    const result = await signupButtonClick();
+    if (!result) return;
+    alert("회원가입에 성공하였습니다");
     router.push("/login");
   };
 
@@ -31,10 +33,12 @@ export default function Signup() {
         <div className="flex flex-col gap-3">
           <div className="flex gap-4">
             <div className="w-[70%]">
-              <StringInput label="아이디" onChange={getId} inputId="id" />
-              <p className="opacity-80 text-[12px] mt-1">
-                아이디는 4글자 이상 12글자 이하의 영문 또는 숫자로 입력해주세요.
-              </p>
+              <StringInput
+                label="이메일"
+                type="email"
+                onChange={getEmail}
+                inputId="signupEmail"
+              />
             </div>
             <button
               type="button"
@@ -48,7 +52,7 @@ export default function Signup() {
               label="비밀번호"
               type="password"
               onChange={getPassword}
-              inputId="password"
+              inputId="signupPassword"
             />
             <p className="opacity-80 text-[12px] mt-1">
               비밀번호는 8자 이상이어야 하며, 영문과 숫자를 포함해야 합니다.
@@ -58,10 +62,10 @@ export default function Signup() {
             label="비밀번호확인"
             type="password"
             onChange={getPasswordConfirm}
-            inputId="passwordConfirm"
+            inputId="signupPasswordConfirm"
           />
           <div>
-            <StringInput label="이름" onChange={getName} inputId="name" />
+            <StringInput label="이름" onChange={getName} inputId="signupName" />
             <p className="opacity-80 text-[12px] mt-1">
               이름은 2글자 이상 8글자 이하의 한글, 영문 또는 숫자로
               입력해주세요.
@@ -73,7 +77,7 @@ export default function Signup() {
                 label="전화번호"
                 type="text"
                 onChange={getPhoneNumber}
-                inputId="phoneNumber"
+                inputId="signupPhoneNumber"
               />
               <p className="opacity-80 text-[12px] mt-1">
                 핸드폰 번호는 0으로 시작하는 11자리 숫자로 입력해주세요.
