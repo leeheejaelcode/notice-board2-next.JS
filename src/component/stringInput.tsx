@@ -6,6 +6,7 @@ import { throttle } from "lodash";
 export default function StringInput({
   isHiddenLabel,
   label,
+  inputId,
   type = "text",
   inputClassName,
   isRequired,
@@ -13,12 +14,17 @@ export default function StringInput({
 }: {
   isHiddenLabel?: boolean;
   label?: string;
+  inputId?: string;
   type?: "text" | "number" | "email" | "password";
   inputClassName?: string;
   isRequired?: boolean;
   onChange?: (value: string) => void;
 }) {
-  const id = useId();
+  // 훅을 항상 호출
+  const generatedId = useId();
+  // 조건에 따라 id 선택
+  const id = inputId ? inputId : generatedId;
+
   const [inputValue, setInputValue] = useState<string>("");
   const [isFocused, setIsFocused] = useState<boolean>(false);
 
