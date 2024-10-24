@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function Nav() {
-  const [loggedIn, setLoggedIn] = useState(!!pb.authStore.model); // 초기 상태 설정
+  const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
     // 로그인 상태가 변경될 때마다 상태를 업데이트
@@ -14,7 +14,6 @@ export default function Nav() {
       setLoggedIn(!!pb.authStore.model);
     };
     updateLoginStatus();
-    // 이벤트 리스너 등록
     pb.authStore.onChange(updateLoginStatus);
   }, []);
 
@@ -31,11 +30,13 @@ export default function Nav() {
         <Link href="/">
           <Image src="/logo.png" alt="logo" width={50} height={50} priority />
         </Link>
-        <Link href="/write">NEW</Link>
         {loggedIn ? (
-          <button type="button" className="ml-auto" onClick={logoutButton}>
-            LOGOUT
-          </button>
+          <>
+            <Link href="/write">NEW</Link>
+            <button type="button" className="ml-auto" onClick={logoutButton}>
+              LOGOUT
+            </button>
+          </>
         ) : (
           <Link href="/login" className="ml-auto">
             LOGIN
