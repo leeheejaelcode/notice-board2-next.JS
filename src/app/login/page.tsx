@@ -4,6 +4,7 @@ import StringInput from "@/component/stringInput";
 import { loginStore } from "@/store/loginStore";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import pb from "@/api/pb";
 
 export default function Login() {
   const router = useRouter();
@@ -15,6 +16,9 @@ export default function Login() {
   const handleLoginButtonClick = async () => {
     const result = await loginButtonClick();
     if (!result) return;
+    document.cookie = pb.authStore.exportToCookie({
+      httpOnly: false,
+    });
     alert("로그인에 성공하였습니다.");
     router.push("/");
   };
