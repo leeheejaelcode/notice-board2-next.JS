@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import Link from "next/link";
-import Image from "next/image";
 import { Toaster } from "react-hot-toast";
+import Nav from "./nav";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -30,23 +29,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <header>
-          <nav className="flex items-center gap-4 p-4 border-b border-solid border-black font-semibold">
-            <Link href="/">
-              <Image
-                src="/logo.png"
-                alt="logo"
-                width={50}
-                height={50}
-                priority
-              />
-            </Link>
-            <Link href="/write">NEW</Link>
-            <Link href="/login" className="ml-auto">
-              LOGIN
-            </Link>
-          </nav>
-        </header>
+        <Nav />
         <main className="main">
           {children}
           <Toaster />
