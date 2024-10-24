@@ -21,6 +21,9 @@ export default function Nav() {
     const result = confirm("로그아웃 하시겠습니까?");
     if (!result) return;
     pb.authStore.clear();
+    document.cookie = pb.authStore.exportToCookie({
+      httpOnly: false,
+    });
     setLoggedIn(false);
   };
 
