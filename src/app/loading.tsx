@@ -1,6 +1,6 @@
 export default function Loading() {
   return (
-    <div className="flex flex-row gap-4">
+    <div className="flex flex-row gap-4 absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
       <div className="w-12 h-12 rounded-full animate-spin border-y border-solid border-cyan-500 border-t-transparent shadow-md" />
     </div>
   );
