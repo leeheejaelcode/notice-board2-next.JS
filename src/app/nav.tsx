@@ -4,10 +4,15 @@ import pb from "@/api/pb";
 import { mainStore } from "@/store/mainStore";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect } from "react";
 
 export default function Nav() {
   const isLoggedIn = mainStore((s) => s.isLoggedIn);
   const updateIsLoggedIn = mainStore((s) => s.updateIsLoggedIn);
+
+  useEffect(() => {
+    updateIsLoggedIn();
+  }, []);
 
   const logoutButton = () => {
     const result = confirm("로그아웃 하시겠습니까?");
