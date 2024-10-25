@@ -45,6 +45,7 @@ export default function Login() {
             onChange={getPassword}
           />
           <button
+          type="button"
             className="p-4 bg-primary text-white rounded-md"
             onClick={() => {
               loginButton();

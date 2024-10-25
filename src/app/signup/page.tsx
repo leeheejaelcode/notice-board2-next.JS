@@ -92,6 +92,7 @@ export default function Signup() {
           </div>
           <StringInput label="인증번호" onChange={getVerificationCode} />
           <button
+            type="button"
             className="p-4 bg-primary text-white rounded-md"
             onClick={() => {
               handleSignupButtonClick();
