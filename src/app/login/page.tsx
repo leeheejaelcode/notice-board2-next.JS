@@ -5,6 +5,7 @@ import { loginStore } from "@/store/loginStore";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import pb from "@/api/pb";
+import { mainStore } from "@/store/mainStore";
 
 export default function Login() {
   const router = useRouter();
@@ -13,12 +14,15 @@ export default function Login() {
   const getPassword = loginStore((s) => s.getPassword);
   const loginButtonClick = loginStore((s) => s.loginButtonClick);
 
-  const handleLoginButtonClick = async () => {
+  const updateIsLoggedIn = mainStore((s) => s.updateIsLoggedIn);
+
+  const loginButton = async () => {
     const result = await loginButtonClick();
     if (!result) return;
     document.cookie = pb.authStore.exportToCookie({
       httpOnly: false,
     });
+    updateIsLoggedIn();
     alert("로그인에 성공하였습니다.");
     router.push("/");
   };
@@ -43,7 +47,7 @@ export default function Login() {
           <button
             className="p-4 bg-primary text-white rounded-md"
             onClick={() => {
-              handleLoginButtonClick();
+              loginButton();
             }}>
             로그인
           </button>

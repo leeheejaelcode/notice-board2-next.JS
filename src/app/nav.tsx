@@ -1,30 +1,20 @@
 "use client";
 
 import pb from "@/api/pb";
+import { mainStore } from "@/store/mainStore";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 
 export default function Nav() {
-  const [loggedIn, setLoggedIn] = useState(false);
-
-  useEffect(() => {
-    // 로그인 상태가 변경될 때마다 상태를 업데이트
-    const updateLoginStatus = () => {
-      setLoggedIn(!!pb.authStore.model);
-    };
-    updateLoginStatus();
-    pb.authStore.onChange(updateLoginStatus);
-  }, []);
+  const isLoggedIn = mainStore((s) => s.isLoggedIn);
+  const updateIsLoggedIn = mainStore((s) => s.updateIsLoggedIn);
 
   const logoutButton = () => {
     const result = confirm("로그아웃 하시겠습니까?");
     if (!result) return;
     pb.authStore.clear();
-    document.cookie = pb.authStore.exportToCookie({
-      httpOnly: false,
-    });
-    setLoggedIn(false);
+    document.cookie = pb.authStore.exportToCookie({ httpOnly: false });
+    updateIsLoggedIn();
   };
 
   return (
@@ -33,7 +23,7 @@ export default function Nav() {
         <Link href="/">
           <Image src="/logo.png" alt="logo" width={50} height={50} priority />
         </Link>
-        {loggedIn ? (
+        {isLoggedIn ? (
           <>
             <Link href="/write">NEW</Link>
             <button type="button" className="ml-auto" onClick={logoutButton}>
