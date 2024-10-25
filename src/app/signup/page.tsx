@@ -1,5 +1,6 @@
 "use client";
 
+import Button from "@/component/button";
 import StringInput from "@/component/stringInput";
 import { signupStore } from "@/store/signupStore.ts";
 import { useRouter } from "next/navigation";
@@ -91,14 +92,7 @@ export default function Signup() {
             </button>
           </div>
           <StringInput label="인증번호" onChange={getVerificationCode} />
-          <button
-            type="button"
-            className="p-4 bg-primary text-white rounded-md"
-            onClick={() => {
-              handleSignupButtonClick();
-            }}>
-            회원가입
-          </button>
+          <Button onClick={handleSignupButtonClick}>회원가입</Button>
         </div>
       </div>
     </section>

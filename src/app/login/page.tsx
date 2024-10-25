@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import pb from "@/api/pb";
 import { mainStore } from "@/store/mainStore";
+import Button from "@/component/button";
 
 export default function Login() {
   const router = useRouter();
@@ -44,14 +45,7 @@ export default function Login() {
             inputId="loginPassword"
             onChange={getPassword}
           />
-          <button
-          type="button"
-            className="p-4 bg-primary text-white rounded-md"
-            onClick={() => {
-              loginButton();
-            }}>
-            로그인
-          </button>
+          <Button onClick={loginButton}>로그인</Button>
           <Link
             href="/signup"
             className="text-center text-sm font-semibold text-gray-600">
