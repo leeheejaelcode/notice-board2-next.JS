@@ -41,5 +41,11 @@ export async function middleware(request: NextRequest) {
     }
   }
 
+  if (request.nextUrl.pathname.startsWith("/login")) {
+    if (user) {
+      return NextResponse.redirect(new URL("/", request.url));
+    }
+  }
+
   return NextResponse.next(); // 로그인된 사용자는 접근 허용
 }
